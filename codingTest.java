@@ -1,27 +1,16 @@
-class Solution{
-    public long solution(int a, int b) {
-        long answer = 0;
+import java.util.Scanner;
 
-        if(a == b){
-            return a;
-        } else if(a > b){
-            for(int i = b;i<=a;i++){
-                answer += i;
-            }
-            System.out.println(answer);
-        } else if(a < b){
-            for(int i = a;i<=b;i++){
-                answer += i;
-            }
-            System.out.println(answer);
-        }
-        return answer;
-    }
-
+class Solution {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt(); //가로
+        int b = sc.nextInt(); //세로
 
-
-        Solution sol = new Solution();
-        sol.solution(3, 5);
+        for(int i = 0;i<b;i++){
+            for(int j = 0;j<a;j++){
+                System.out.print("*");
+            }
+            System.out.println("");
+        }
     }
 }
