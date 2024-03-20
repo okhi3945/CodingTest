@@ -1,21 +1,13 @@
 class Solution {
-    public String solution(String s) {
-        String answer = "";
-        int cnt = 0; //cnt로 공백시 마다 카운트 초기화
-        for (int i = 0; i < s.length(); i++) {
+    public int solution(String t, String p) {
+        int answer = 0;
 
-            if (s.charAt(i) != ' ') {
-                if (cnt % 2 == 0) {
-                    answer += String.valueOf(s.charAt(i)).toUpperCase();
-                    cnt++;
-                } else {
-                    answer += String.valueOf(s.charAt(i)).toLowerCase(); //홀수일때 소문자로 변환시켜주기
-                    cnt++;
-                }
-            } else {
-                answer += " ";
-                cnt = 0;
-            }
+        // 제한 사항 : 1 ≤ p의 길이 ≤ 18
+        // int는 숫자 10자리, long 사용해야함
+        for(int i = 0;i<t.length()-p.length()+1;i++){
+            if(Integer.valueOf(p) >= (Integer.valueOf(t.substring(i, i+p.length())))){
+                answer++;
+            } 
         }
 
         return answer;
@@ -23,7 +15,6 @@ class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        // solution.solution("try hello world");
-        System.out.println(solution.solution("tryaaworl  dabc"));
+        System.out.println(solution.solution("500220839878","7"));
     }
 }
