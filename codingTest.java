@@ -1,20 +1,19 @@
 class Solution {
-    public int solution(String t, String p) {
+    public int solution(String s) {
         int answer = 0;
-
-        // 제한 사항 : 1 ≤ p의 길이 ≤ 18
-        // int는 숫자 10자리, long 사용해야함
-        for(int i = 0;i<t.length()-p.length()+1;i++){
-            if(Integer.valueOf(p) >= (Integer.valueOf(t.substring(i, i+p.length())))){
-                answer++;
-            } 
+        String[] numS = {"zero","one","two","three","four","five","six","seven","eight","nine"};
+        //contain 사용시 zero가 먼저 실행되기 때문에 contain 사용 X
+        //contain 대신 replace 사용하기
+        for(int i = 0;i<numS.length;i++){
+            s=s.replace(numS[i], String.valueOf(i));
         }
-
+        answer = Integer.valueOf(s);
         return answer;
     }
 
+
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.println(solution.solution("500220839878","7"));
+        System.out.println(solution.solution("one4zeroeight"));
     }
 }
