@@ -1,47 +1,37 @@
-import java.util.*;
 
 class Solution {
-    public int solution(int[] A, int[] B) {
-        int answer = 0;
-        // 제일 작은 숫자와 제일 큰 숫자를 곱해야겠네
-        // 효율성 테스트가 빡쌤 아마도 for문을 2번써서 그런 것 같음
-        // for (int i = 0; i < A.length; i++) {
-        // for (int j = i + 1; j < A.length; j++) {
-        // if (A[j] < A[i]) {
-        // int tmp = 0;
-        // tmp = A[j];
-        // A[j] = A[i];
-        // A[i] = tmp;
-        // }
-        // if (B[i] < B[j]) {
-        // int tmp = 0;
-        // tmp = B[j];
-        // B[j] = B[i];
-        // B[i] = tmp;
-        // }
-        // }
-        // }
-        ArrayList<Integer> list = new ArrayList<>();
-        ArrayList<Integer> Blist = new ArrayList<>();
-        for (int i = 0; i < A.length; i++) {
-            list.add(A[i]);
-            Blist.add(B[i]);
-        }
-        list.sort(Comparator.naturalOrder());
-        Blist.sort(Comparator.reverseOrder());
+    public String solution(String s, String skip, int index) {
+        String answer = "";
+        for(int i = 0;i<s.length();i++){
+            char c = s.charAt(i);
 
-        
-        for(int i = 0;i<list.size();i++){
-            answer += (list.get(i) * Blist.get(i));
+            // 인덱스 만큼 돌면서 skip에 c가 포함(contains( ))되면 index를 안올리고
+            // skip에 포함되지 않으면 index값 + 해서 주어진 index까지 반복  
+            for(int j = 0;j<index;j++){
+                c++;
+                if(c>'z'){
+                    c-=26;
+                }
+                //for문을 돌리지말고 String의 contains( ) 함수를 사용해서 index를 관리해야함
+                if(skip.contains(String.valueOf(c))){
+                    System.out.println("포함 : " + String.valueOf(c));
+                    j--;
+                }
+            }
+            answer+=c;
         }
-        
+
+
         return answer;
     }
 
     public static void main(String[] args) {
+        // skip에 값이 연속된 값이거나 반복되는 값인 경우를 생각
         Solution solution = new Solution();
-        int[] a = { 5, 100, 5, 350, 37, 49 };
-        int[] b = { 80, 60, 90, 7, 190, 20 };
-        System.out.println(solution.solution(a, b));
+        String a = "klmnopqrstuvwxyz";
+        String s = "abcdefghij";
+        int index = 20;
+        System.out.println(solution.solution(a, s, index));
+
     }
 }
