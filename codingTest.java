@@ -1,37 +1,29 @@
-
 class Solution {
-    public String solution(String s, String skip, int index) {
-        String answer = "";
-        for(int i = 0;i<s.length();i++){
-            char c = s.charAt(i);
+    public int solution(int n) {
+        int answer = 1; //자기 자신 미리 더하고 시작
 
-            // 인덱스 만큼 돌면서 skip에 c가 포함(contains( ))되면 index를 안올리고
-            // skip에 포함되지 않으면 index값 + 해서 주어진 index까지 반복  
-            for(int j = 0;j<index;j++){
-                c++;
-                if(c>'z'){
-                    c-=26;
-                }
-                //for문을 돌리지말고 String의 contains( ) 함수를 사용해서 index를 관리해야함
-                if(skip.contains(String.valueOf(c))){
-                    System.out.println("포함 : " + String.valueOf(c));
-                    j--;
-                }
+        // 연속되는 수 더해서 n이 되려면 n/2가 마지노선임
+        for(int i = 1;i<=n/2;i++){
+            int sum = 0;
+            int k = i;
+
+            //sum이 n보다 작은 동안 while문 돌림
+            while(sum<n){
+                sum+=k;
+                k++;
             }
-            answer+=c;
+            //while문을 마친 sum의 값이 n과 같으면 answer+=1
+            if(sum==n){
+                answer+=1;
+            }
         }
-
 
         return answer;
     }
 
     public static void main(String[] args) {
-        // skip에 값이 연속된 값이거나 반복되는 값인 경우를 생각
         Solution solution = new Solution();
-        String a = "klmnopqrstuvwxyz";
-        String s = "abcdefghij";
-        int index = 20;
-        System.out.println(solution.solution(a, s, index));
+        System.out.println(solution.solution(15));
 
     }
 }
