@@ -1,100 +1,74 @@
 package Baekjoon;
-// 복호화
-import java.util.Scanner;
+// 세로읽기
+
+// https://www.acmicpc.net/problem/10798
+
+import java.util.*;
 
 public class Main {
 
-    public String calculate(String s){
-        int[] cnt = new int[27];
-        String answer = "";
-        String conversionString = "abcdefghijklmnopqrstuvwxyz";
+    // AABCDD
+    // afzz
+    // 09121
+    // a8EWg6
+    // P5h3kx
 
-        int max = 0;
-        int maxIndex = 0;
-        for(int i = 0;i<s.length();i++){
-            cnt[s.charAt(i) - 'a'] += 1; // 오답노트) 'a' - 'a' = 0, 'b' - 'a' = 1, '0'이 아니라 'a'도 빼거나 더할 수 있다!
+    // Aa0aPAf985Bz1EhCz2W3D1gkD6x
+
+    // a 1
+    // bd 2
+    // cef 3
+    // gfcd 4
+    // h 1
+
+    // abdcefgfcdh => abcghdeffcd
+
+    // int[] stringSize = new int[5];
+    // ArrayList<Character> list = new ArrayList<>();
+
+    ArrayList<Queue<Character>> list = new ArrayList<>();
+
+    public void save(String s) {
+        Queue<Character> queue = new LinkedList<Character>();
+        for (int i = 0; i < s.length(); i++) {
+            queue.add(s.charAt(i));
         }
-        // for(int i =0; i<cnt.length;i++){
-        //     System.out.println(cnt[i]);
-        // }
-        boolean isEqual = false;
-        for(int i =0;i<cnt.length;i++){
-            if(cnt[i] > max){
-                max = cnt[i];
-                maxIndex = i;
-                isEqual = false;
-            } else if(cnt[i] == max){
-                isEqual = true;
+
+        list.add(queue);
+    }
+
+    public String readVertical() {
+        // list에 있는 큐에 있는 값 맨 위의 값을 빼오고 다음 리스트에 있는 큐 맨위 값 가져오고,
+        // 반복
+        String answer = "";
+        while (!list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+                // System.out.println(list.get(i).poll());
+                if (!list.get(i).isEmpty()) {
+                    answer += String.valueOf(list.get(i).poll());
+                    // System.out.println(i + " 삽입");
+                } else{
+                    list.remove(i);
+                    // System.out.println(i + " 삭제");
+                    i--;
+                }
+                
             }
+
         }
-        // System.out.println(isEqual);
-        if(isEqual){
-            answer="?";
-        } else{
-            answer = String.valueOf(conversionString.charAt(maxIndex));
-        }
+
         return answer;
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Main main = new Main();
-        int a = sc.nextInt();
-        sc.nextLine();
 
-        for(int i = 0;i<a;i++){
+        for (int i = 0; i < 5; i++) {
             String s = sc.nextLine();
-            System.out.println(main.calculate(s.replaceAll(" ", "")));
+            main.save(s);
         }
-
+        System.out.println(main.readVertical());
+        // main.readVertical();
     }
 }
-
-// package Baekjoon;
-// // 복호화
-// import java.util.Scanner;
-
-// public class Main {
-    
-//     public String calculate(String s){
-//         int[] cnt = new int[26];
-        
-//         for(char c : s.toCharArray()){
-//             cnt[c-'a']++;
-//             // System.out.println("c : " + (c-'a')); ex) 'a' - 'a' = 0, 'b' - 'a' = 1
-//         }
-
-//         int maxCount = 0;
-//         int max = 0;
-//         for(int i = 0;i<cnt.length;i++){
-//             if(cnt[i] > max){
-//                 max = cnt[i];
-//                 maxCount = 1;
-//             } else if(cnt[i] == max){
-//                 maxCount++;
-//             }
-//         }
-
-//         if(maxCount > 1) return "?";
-        
-//         for(int i = 0; i < cnt.length;i++){
-//             if(max == cnt[i]){
-//                 return String.valueOf((char)('a' + i)); // 'a' + 0 = 'a', 'a' + 1 = 'b'
-//             } 
-//         }
-
-//         return "?";
-//     }
-
-//     public static void main(String[] args) {
-//         Scanner sc = new Scanner(System.in);
-//         Main main = new Main();
-//         int i = sc.nextInt();
-//         sc.nextLine();
-
-//         for(int j = 0; j<i;j++){
-//             String s = sc.nextLine().replaceAll(" ", "");
-//             System.out.println(main.calculate(s));
-//         }
-//     }
-// }
